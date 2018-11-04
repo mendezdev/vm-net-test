@@ -28,5 +28,23 @@ namespace DataAccess.UserActions
         {
             return context.Users.ToListAsync();
         }
+
+        public Task<User> GetById(int id)
+        {
+            return context.Users.FirstOrDefaultAsync(u => u.Id == id);
+        }
+
+        public async Task<User> Update(int id, User user)
+        {
+            var existingUser = await context.Users.SingleOrDefaultAsync(u => u.Id == id);
+
+            existingUser.FirstName = user.FirstName;
+            existingUser.LastName = user.LastName;
+            existingUser.Email = user.Email;
+            existingUser.Password = user.Password;
+
+            var result = await context.SaveChangesAsync();
+            return existingUser;
+        }
     }
 }

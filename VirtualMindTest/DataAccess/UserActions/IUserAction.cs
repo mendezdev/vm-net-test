@@ -11,5 +11,7 @@ namespace DataAccess.UserActions
     {
         Task<User> Create(User user);
         Task<List<User>> GetAll();
+        Task<User> GetById(int id);
+        Task<User> Update(int id, User user);
     }
 }
