@@ -7,28 +7,55 @@ using System.Threading.Tasks;
 using Moq;
 using Domain.Impl.Client;
 using Domain;
+using ViewModels;
+using Domain.Impl;
+using System.Configuration;
 
 namespace Tests.Quotation
 {
     [TestClass]
     public class QuotationTest
     {
-        private Mock<IQuotationDomain> quotationDomain;
+        private Mock<IQuotationDomain> quotationDomainMock;
         private Mock<IApiClient> apiClient;
+        private const string quotationUrl = "http://www.bancoprovincia.com.ar/Principal/Dolar";
 
         [TestInitialize]
         public void Initialize()
         {
-            quotationDomain = new Mock<IQuotationDomain>();
+            ConfigurationManager.AppSettings["QuotationUrl"] = quotationUrl;
+            quotationDomainMock = new Mock<IQuotationDomain>();
             apiClient = new Mock<IApiClient>();
         }
 
-        //[TestMethod]
-        //[TestCategory("Quotation")]
-        //public async Task GetQuotationInformationOk()
-        //{
-        //    apiClient.Setup(a => a.GetAsync(It.IsAny<string>()))
-        //        .ReturnsAsync()
-        //}
+        [TestMethod]
+        [TestCategory("Quotation")]
+        public async Task GetQuotationInformationOk()
+        {
+            var currency = "Dolar";
+            var quotationInformation = new List<string>
+            {
+                "10.00",
+                "12.20",
+                ""
+            };
+            var quotationResponse = new QuotationResponse
+            {
+                PurchasePrice = (decimal)10.00,
+                SalePrice = (decimal)12.20
+            };
+
+            apiClient.Setup(a => a.GetAsync<List<string>>(quotationUrl))
+                .ReturnsAsync(quotationInformation);
+            quotationDomainMock.Setup(q => q.GetQuotation(currency))
+                .ReturnsAsync(quotationResponse);
+
+            var domain = new QuotationDomain();
+            var result = await domain.GetQuotation(currency);
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(result.PurchasePrice, quotationResponse.PurchasePrice);
+            Assert.AreEqual(result.SalePrice, quotationResponse.SalePrice);
+        }
     }
 }
