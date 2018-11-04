@@ -32,7 +32,6 @@ namespace Api.Controllers
         {
             try
             {
-                var user = await userDomain.GetById(id);
                 return Ok(await userDomain.GetById(id));
             } catch (UserIdNotFoundException e)
             {
@@ -52,8 +51,7 @@ namespace Api.Controllers
         {
             try
             {
-                var result = await userDomain.Update(id, user);
-                return Ok(result);
+                return Ok(await userDomain.Update(id, user));
             }
             catch (UserIdNotFoundException e)
             {
