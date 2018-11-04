@@ -9,6 +9,6 @@ namespace Domain.Impl.Client
 {
     public interface IApiClient
     {
-        Task<HttpResponseMessage> GetAsync(string uri);
+        Task<T> GetAsync<T>(string uri);
     }
 }
