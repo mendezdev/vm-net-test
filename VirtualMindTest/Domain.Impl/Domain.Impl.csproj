@@ -57,6 +57,10 @@
     <Compile Include="UserDomain.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{D1152AFA-EE73-4D20-AEFE-2EAB00168CAB}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DataAccess\DataAccess.csproj">
       <Project>{89EC93D1-CA1C-4E0D-85EF-F11CA1B8B540}</Project>
       <Name>DataAccess</Name>

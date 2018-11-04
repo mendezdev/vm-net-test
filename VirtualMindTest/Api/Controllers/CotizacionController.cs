@@ -1,4 +1,6 @@
-﻿using Domain;
+﻿using Core.CrossException;
+using Core.QuotationException;
+using Domain;
 using Domain.Impl;
 using System;
 using System.Collections.Generic;
@@ -22,14 +24,23 @@ namespace Api.Controllers
         [HttpGet]
         public async Task<IHttpActionResult> Get(string id)
         {
-            var response = await quotationDomain.GetQuotation(id);
-
-            if (response.HasError)
+            try
             {
-                return Content((HttpStatusCode)response.CodeError, response.Message);
+                var response = await quotationDomain.GetQuotation(id);
+                return Ok(response);
             }
-
-            return Ok(response.ObjectResponse);
+            catch (NotExistCurrencyIdException ex)
+            {
+                return Content(HttpStatusCode.BadRequest, new { ErrorMessage = ex.Message });
+            }
+            catch (NotAvailableCurrencyException ex)
+            {
+                return Content(HttpStatusCode.Unauthorized, new { ErrorMessage = ex.Message });
+            }
+            catch (CrossException ex)
+            {
+                return Content(HttpStatusCode.ServiceUnavailable, new { ErrorMessage = ex.Message });
+            }
         }
     }
 }

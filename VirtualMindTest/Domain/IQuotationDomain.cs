@@ -9,6 +9,6 @@ namespace Domain
 {
     public interface IQuotationDomain
     {
-        Task<Response<QuotationResponse>> GetQuotation(string currency);
+        Task<QuotationResponse> GetQuotation(string currency);
     }
 }

@@ -9,78 +9,69 @@ using Domain.Impl.Constants;
 using Domain.Impl.Formatters;
 using System.Web.Configuration;
 using System.Net.Http;
+using Core.QuotationException;
+using Core.CrossException;
 
 namespace Domain.Impl
 {
     public class QuotationDomain : IQuotationDomain
     {
-        private readonly IDictionary<string, Func<Task<Response<QuotationResponse>>>> cotizationStrategy;
+        private readonly IDictionary<string, Func<string, Task<QuotationResponse>>> cotizationStrategy;
         private readonly HttpClient client;
 
         public QuotationDomain()
         {
             client = new HttpClient();
-            cotizationStrategy = new Dictionary<string, Func<Task<Response<QuotationResponse>>>>();
+            cotizationStrategy = new Dictionary<string, Func<string, Task<QuotationResponse>>>();
             cotizationStrategy.Add(CurrencyType.DOLAR, GetDolarQuotation);
             cotizationStrategy.Add(CurrencyType.PESOS, GetRealQuotation);
             cotizationStrategy.Add(CurrencyType.REAL, GetPesosQuotation);
         }
 
-        public async Task<Response<QuotationResponse>> GetQuotation(string currency)
+        public async Task<QuotationResponse> GetQuotation(string currency)
         {
             try
             {
-                return await cotizationStrategy[currency]();
+                return await cotizationStrategy[currency](currency);
             }
-            catch (KeyNotFoundException ex)
+            catch (KeyNotFoundException)
             {
-                return new Response<QuotationResponse>
-                {
-                    CodeError = 500,
-                    HasError = true,
-                    Message = "El tipo de moneda no esta contemplado."
-                };
+                var message = String.Format("El tipo de moneda {0} esta incorrecto o no esta contemplado. Los valores correctos son: '{1}', '{2}' y '{3}'",
+                    currency, CurrencyType.PESOS, CurrencyType.REAL, CurrencyType.DOLAR);
+                throw new NotExistCurrencyIdException(message);
             }
         }
 
-        private Task<Response<QuotationResponse>> GetRealQuotation()
+        private Task<QuotationResponse> GetRealQuotation(string currency)
         {
-            return GetUnhautorizedError();
+            return GetUnhautorizedError(currency);
         }
 
-        private Task<Response<QuotationResponse>> GetPesosQuotation()
+        private Task<QuotationResponse> GetPesosQuotation(string currency)
         {
-            return GetUnhautorizedError();
+            return GetUnhautorizedError(currency);
         }
 
-        private async Task<Response<QuotationResponse>> GetDolarQuotation()
+        private async Task<QuotationResponse> GetDolarQuotation(string currency)
         {
-            var response = new Response<QuotationResponse>();
+            var response = new QuotationResponse();
             var formatter = new QuotationFormatter();
 
             var uri = WebConfigurationManager.AppSettings["QuotationUrl"];
             var result = await client.GetAsync(uri);
             if (!result.IsSuccessStatusCode)
             {
-                response.HasError = true;
-                response.Message = "Ocurrió un problema al intentar obtener la cotización. Intente de nuevo mas tarde, por favor.";
-                response.CodeError = 401;
-                return response;
+                throw new CrossException("Ocurrió un problema al intentar obtener la cotización. Intente de nuevo mas tarde, por favor.");
             }
 
             var quotation = await result.Content.ReadAsAsync<List<string>>();
-            response.ObjectResponse = formatter.ToQuotationResponse(quotation);
+            response = formatter.ToQuotationResponse(quotation);
             return response;
         }
 
-        private Task<Response<QuotationResponse>> GetUnhautorizedError()
+        private Task<QuotationResponse> GetUnhautorizedError(string curremcy)
         {
-            return Task.FromResult(new Response<QuotationResponse>
-            {
-                HasError = true,
-                Message = "Not authorized for this endpoint.",
-                CodeError = 401
-            });
+            throw new NotAvailableCurrencyException($"No autorizado para obtener información del tipo: {curremcy}.");
         }
     }
 }
