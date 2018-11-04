@@ -26,10 +26,27 @@ namespace Api.Controllers
             return Ok(await userDomain.GetAll());
         }
 
+        [HttpGet]
+        public async Task<IHttpActionResult> GetById(string id)
+        {
+            var user = await userDomain.GetById(id);
+            if (user == null)
+                return Content(HttpStatusCode.NoContent, user);
+
+            return Ok(await userDomain.GetById(id));
+        }
+
         [HttpPost]
         public async Task<IHttpActionResult> Post([FromBody]User user)
         {
             var result = await userDomain.Create(user);
+            return Ok(result);
+        }
+
+        [HttpPut]
+        public async Task<IHttpActionResult> Put(string id, [FromBody]User user)
+        {
+            var result = await userDomain.Update(id, user);
             return Ok(result);
         }
     }
