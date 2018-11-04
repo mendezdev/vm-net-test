@@ -18,12 +18,12 @@ namespace Tests.Quotation
     {
         private Mock<IQuotationDomain> quotationDomainMock;
         private Mock<IApiClient> apiClient;
-        private const string quotationUrl = "http://www.bancoprovincia.com.ar/Principal/Dolar";
+        private const string quotationUrl = "QuotationUrl";
 
         [TestInitialize]
         public void Initialize()
         {
-            ConfigurationManager.AppSettings["QuotationUrl"] = quotationUrl;
+            ConfigurationManager.AppSettings[quotationUrl] = quotationUrl;
             quotationDomainMock = new Mock<IQuotationDomain>();
             apiClient = new Mock<IApiClient>();
         }
@@ -50,7 +50,7 @@ namespace Tests.Quotation
             quotationDomainMock.Setup(q => q.GetQuotation(currency))
                 .ReturnsAsync(quotationResponse);
 
-            var domain = new QuotationDomain();
+            var domain = new QuotationDomain(apiClient.Object);
             var result = await domain.GetQuotation(currency);
 
             Assert.IsNotNull(result);
