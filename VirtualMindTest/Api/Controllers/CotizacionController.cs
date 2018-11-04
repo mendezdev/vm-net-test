@@ -2,6 +2,7 @@
 using Core.QuotationException;
 using Domain;
 using Domain.Impl;
+using Domain.Impl.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,10 +16,12 @@ namespace Api.Controllers
     public class CotizacionController : ApiController
     {
         private readonly IQuotationDomain quotationDomain;
+        private readonly ApiClient apiClient;
 
         public CotizacionController()
         {
-            quotationDomain = new QuotationDomain();
+            apiClient = new ApiClient(new HttpClient());
+            quotationDomain = new QuotationDomain(apiClient);
         }
 
         [HttpGet]

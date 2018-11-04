@@ -20,9 +20,9 @@ namespace Domain.Impl
         private readonly IDictionary<string, Func<string, Task<QuotationResponse>>> cotizationStrategy;
         private readonly IApiClient apiClient;
 
-        public QuotationDomain()
+        public QuotationDomain(IApiClient apiClient)
         {
-            apiClient = new ApiClient(new HttpClient());
+            this.apiClient = apiClient;
             cotizationStrategy = new Dictionary<string, Func<string, Task<QuotationResponse>>>();
             cotizationStrategy.Add(CurrencyType.DOLAR, GetDolarQuotation);
             cotizationStrategy.Add(CurrencyType.PESOS, GetRealQuotation);
