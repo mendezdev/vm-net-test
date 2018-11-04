@@ -1,4 +1,5 @@
-﻿using Domain;
+﻿using Core.UserException;
+using Domain;
 using Domain.Impl;
 using Models;
 using System;
@@ -29,11 +30,15 @@ namespace Api.Controllers
         [HttpGet]
         public async Task<IHttpActionResult> GetById(string id)
         {
-            var user = await userDomain.GetById(id);
-            if (user == null)
-                return Content(HttpStatusCode.NoContent, user);
+            try
+            {
+                var user = await userDomain.GetById(id);
 
-            return Ok(await userDomain.GetById(id));
+                return Ok(await userDomain.GetById(id));
+            } catch (UserIdNotFoundException e)
+            {
+                return Content(HttpStatusCode.BadRequest, e.Message);
+            }
         }
 
         [HttpPost]
@@ -46,8 +51,15 @@ namespace Api.Controllers
         [HttpPut]
         public async Task<IHttpActionResult> Put(string id, [FromBody]User user)
         {
-            var result = await userDomain.Update(id, user);
-            return Ok(result);
+            try
+            {
+                var result = await userDomain.Update(id, user);
+                return Ok(result);
+            }
+            catch (UserIdNotFoundException e)
+            {
+                return Content(HttpStatusCode.BadRequest, e.Message);
+            }
         }
     }
 }

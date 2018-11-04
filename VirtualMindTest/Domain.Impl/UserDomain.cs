@@ -36,8 +36,6 @@ namespace Domain.Impl
         public async Task<UserResponse> GetById(string id)
         {
             var user = await userAction.GetById(Convert.ToInt32(id));
-            if (user == null)
-                return null;
             return userFormatter.ToUserResponse(user);
         }
 

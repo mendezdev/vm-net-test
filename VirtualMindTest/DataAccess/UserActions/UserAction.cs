@@ -1,4 +1,5 @@
-﻿using Models;
+﻿using Core.UserException;
+using Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -29,14 +30,21 @@ namespace DataAccess.UserActions
             return context.Users.ToListAsync();
         }
 
-        public Task<User> GetById(int id)
+        public async Task<User> GetById(int id)
         {
-            return context.Users.FirstOrDefaultAsync(u => u.Id == id);
+            var user = await context.Users.SingleOrDefaultAsync(u => u.Id == id);
+            if (user == null)
+                throw new UserIdNotFoundException($"No existe un usuario con el id {id}");
+
+            return user;
         }
 
         public async Task<User> Update(int id, User user)
         {
             var existingUser = await context.Users.SingleOrDefaultAsync(u => u.Id == id);
+            
+            if (existingUser == null)
+                throw new UserIdNotFoundException($"No existe un usuario con el id {id}");
 
             existingUser.FirstName = user.FirstName;
             existingUser.LastName = user.LastName;
