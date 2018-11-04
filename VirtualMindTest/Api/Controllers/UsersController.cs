@@ -33,7 +33,6 @@ namespace Api.Controllers
             try
             {
                 var user = await userDomain.GetById(id);
-
                 return Ok(await userDomain.GetById(id));
             } catch (UserIdNotFoundException e)
             {
