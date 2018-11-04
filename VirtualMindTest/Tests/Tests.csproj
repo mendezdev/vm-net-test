@@ -76,6 +76,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="GlobalFakeData.cs" />
+    <Compile Include="Quotation\QuotationFakeData.cs" />
     <Compile Include="Quotation\QuotationTest.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -84,6 +86,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{D1152AFA-EE73-4D20-AEFE-2EAB00168CAB}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Domain.Impl\Domain.Impl.csproj">
       <Project>{3876803F-C95C-4F29-AB3C-18AD40ECA2C8}</Project>
       <Name>Domain.Impl</Name>
