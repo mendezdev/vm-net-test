@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Constants\CurrencyType.cs" />
     <Compile Include="Formatters\QuotationFormatter.cs" />
+    <Compile Include="Formatters\UserFormatter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuotationDomain.cs" />
     <Compile Include="UserDomain.cs" />
