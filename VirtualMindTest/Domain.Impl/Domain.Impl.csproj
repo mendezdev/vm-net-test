@@ -53,11 +53,20 @@
     <Compile Include="Formatters\QuotationFormatter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuotationDomain.cs" />
+    <Compile Include="UserDomain.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DataAccess\DataAccess.csproj">
+      <Project>{89EC93D1-CA1C-4E0D-85EF-F11CA1B8B540}</Project>
+      <Name>DataAccess</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{176eadb1-b336-4fb7-9674-16b1dd611a99}</Project>
       <Name>Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Models\Models.csproj">
+      <Project>{A06C6013-06BE-4AC7-8E97-3027E1348FC2}</Project>
+      <Name>Models</Name>
     </ProjectReference>
     <ProjectReference Include="..\ViewModels\ViewModels.csproj">
       <Project>{05FF39D3-83D9-4FD8-89AD-882F89D9148A}</Project>

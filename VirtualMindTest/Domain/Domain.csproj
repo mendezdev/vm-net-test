@@ -41,9 +41,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IQuotationDomain.cs" />
+    <Compile Include="IUserDomain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Models\Models.csproj">
+      <Project>{a06c6013-06be-4ac7-8e97-3027e1348fc2}</Project>
+      <Name>Models</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ViewModels\ViewModels.csproj">
       <Project>{05ff39d3-83d9-4fd8-89ad-882f89d9148a}</Project>
       <Name>ViewModels</Name>
