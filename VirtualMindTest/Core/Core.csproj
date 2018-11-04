@@ -40,7 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CrossException\CrossException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QuotationException\NotAvailableCurrencyException.cs" />
+    <Compile Include="QuotationException\NotExistCurrencyIdException.cs" />
     <Compile Include="UserException\UserIdNotFoundException.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
