@@ -11,6 +11,8 @@ namespace Domain
     public interface IUserDomain
     {
         Task<User> Create(User user);
+        Task<UserResponse> GetById(string id);
         Task<List<UserResponse>> GetAll();
+        Task<UserResponse> Update(string id, User user);
     }
 }
