@@ -16,9 +16,9 @@ namespace Domain.Impl
         private readonly IUserAction userAction;
         private readonly UserFormatter userFormatter;
 
-        public UserDomain()
+        public UserDomain(IUserAction userAction)
         {
-            userAction = new UserAction();
+            this.userAction = userAction;
             userFormatter = new UserFormatter();
         }
 

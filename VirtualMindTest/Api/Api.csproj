@@ -147,6 +147,10 @@
       <Project>{d1152afa-ee73-4d20-aefe-2eab00168cab}</Project>
       <Name>Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DataAccess\DataAccess.csproj">
+      <Project>{89EC93D1-CA1C-4E0D-85EF-F11CA1B8B540}</Project>
+      <Name>DataAccess</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Domain.Impl\Domain.Impl.csproj">
       <Project>{3876803f-c95c-4f29-ab3c-18ad40eca2c8}</Project>
       <Name>Domain.Impl</Name>

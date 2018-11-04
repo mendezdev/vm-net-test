@@ -1,4 +1,5 @@
 ﻿using Core.UserException;
+using DataAccess.UserActions;
 using Domain;
 using Domain.Impl;
 using Models;
@@ -18,7 +19,7 @@ namespace Api.Controllers
 
         public UsersController()
         {
-            userDomain = new UserDomain();
+            userDomain = new UserDomain(new UserAction());
         }
 
         [HttpGet]
