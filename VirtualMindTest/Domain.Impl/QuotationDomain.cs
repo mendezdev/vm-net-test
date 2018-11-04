@@ -11,17 +11,18 @@ using System.Web.Configuration;
 using System.Net.Http;
 using Core.QuotationException;
 using Core.CrossException;
+using Domain.Impl.Client;
 
 namespace Domain.Impl
 {
     public class QuotationDomain : IQuotationDomain
     {
         private readonly IDictionary<string, Func<string, Task<QuotationResponse>>> cotizationStrategy;
-        private readonly HttpClient client;
+        private readonly IApiClient apiClient;
 
         public QuotationDomain()
         {
-            client = new HttpClient();
+            apiClient = new ApiClient(new HttpClient());
             cotizationStrategy = new Dictionary<string, Func<string, Task<QuotationResponse>>>();
             cotizationStrategy.Add(CurrencyType.DOLAR, GetDolarQuotation);
             cotizationStrategy.Add(CurrencyType.PESOS, GetRealQuotation);
@@ -58,7 +59,7 @@ namespace Domain.Impl
             var formatter = new QuotationFormatter();
 
             var uri = WebConfigurationManager.AppSettings["QuotationUrl"];
-            var result = await client.GetAsync(uri);
+            var result = await apiClient.GetAsync(uri);
             if (!result.IsSuccessStatusCode)
             {
                 throw new CrossException("Ocurrió un problema al intentar obtener la cotización. Intente de nuevo mas tarde, por favor.");
