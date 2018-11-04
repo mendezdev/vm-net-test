@@ -59,13 +59,8 @@ namespace Domain.Impl
             var formatter = new QuotationFormatter();
 
             var uri = WebConfigurationManager.AppSettings["QuotationUrl"];
-            var result = await apiClient.GetAsync(uri);
-            if (!result.IsSuccessStatusCode)
-            {
-                throw new CrossException("Ocurrió un problema al intentar obtener la cotización. Intente de nuevo mas tarde, por favor.");
-            }
+            var quotation = await apiClient.GetAsync<List<string>>(uri);
 
-            var quotation = await result.Content.ReadAsAsync<List<string>>();
             response = formatter.ToQuotationResponse(quotation);
             return response;
         }
