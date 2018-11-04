@@ -49,6 +49,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Client\ApiClient.cs" />
+    <Compile Include="Client\IApiClient.cs" />
     <Compile Include="Constants\CurrencyType.cs" />
     <Compile Include="Formatters\QuotationFormatter.cs" />
     <Compile Include="Formatters\UserFormatter.cs" />
