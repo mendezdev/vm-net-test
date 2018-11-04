@@ -44,7 +44,7 @@ namespace Api.Controllers
         public async Task<IHttpActionResult> Post([FromBody]User user)
         {
             var result = await userDomain.Create(user);
-            return Ok(result);
+            return Content(HttpStatusCode.Created, result);
         }
 
         [HttpPut]
