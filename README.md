@@ -15,4 +15,4 @@ To do this, you need to:
 3) Open the Package Manager Console, to do this you need to go to the toolbar and find Tools > NuGet Package Manager > Package Manager Console.
 4) Make sure that in the "Default project" is "DataAccess" value selected and run: ```$ Update-Database ``` 
 
-When this is finished, you will have the database (whathever you named in the Web.config file) and the User table.
+When this is finished, you will have the database (whatever you named in the Web.config file) and the User table.
