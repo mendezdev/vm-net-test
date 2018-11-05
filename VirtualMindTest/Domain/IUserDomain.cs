@@ -14,5 +14,6 @@ namespace Domain
         Task<UserResponse> GetById(string id);
         Task<List<UserResponse>> GetAll();
         Task<UserResponse> Update(string id, User user);
+        Task Delete(string id);
     }
 }

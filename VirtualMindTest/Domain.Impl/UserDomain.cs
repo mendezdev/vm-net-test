@@ -44,5 +44,10 @@ namespace Domain.Impl
             var userUpdated = await userAction.Update(Convert.ToInt32(id), user);
             return userFormatter.ToUserResponse(userUpdated);
         }
+
+        public async Task Delete(string id)
+        {
+            await userAction.Delete(Convert.ToInt32(id));
+        }
     }
 }

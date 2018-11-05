@@ -23,7 +23,7 @@ namespace DataAccess.UserActions
             context.Users.Add(user);
             var result = await context.SaveChangesAsync();
             return user;
-        }
+        }        
 
         public Task<List<User>> GetAll()
         {
@@ -53,6 +53,17 @@ namespace DataAccess.UserActions
 
             var result = await context.SaveChangesAsync();
             return existingUser;
+        }
+
+        public async Task Delete(int id)
+        {
+            var existingUser = await context.Users.FirstOrDefaultAsync(u => u.Id == id);
+
+            if (existingUser == null)
+                throw new UserIdNotFoundException($"No existe un usuario con el id {id}");
+
+            context.Users.Remove(existingUser);
+            await context.SaveChangesAsync();
         }
     }
 }
