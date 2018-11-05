@@ -16,3 +16,6 @@ To do this, you need to:
 4) Make sure that in the "Default project" is "DataAccess" value selected and run: ```$ Update-Database ``` 
 
 When this is finished, you will have the database (whatever you named in the Web.config file) and the User table.
+
+## Run app
+In Visual Studio, press F5 and enjoy!
