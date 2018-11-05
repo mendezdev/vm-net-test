@@ -29,7 +29,7 @@ namespace Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IHttpActionResult> GetById(string id)
+        public async Task<IHttpActionResult> GetById(int id)
         {
             try
             {
@@ -48,7 +48,7 @@ namespace Api.Controllers
         }
 
         [HttpPut]
-        public async Task<IHttpActionResult> Put(string id, [FromBody]User user)
+        public async Task<IHttpActionResult> Put(int id, [FromBody]User user)
         {
             try
             {
@@ -61,7 +61,7 @@ namespace Api.Controllers
         }
 
         [HttpDelete]
-        public async Task<IHttpActionResult> Delete(string id)
+        public async Task<IHttpActionResult> Delete(int id)
         {
             try
             {

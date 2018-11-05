@@ -33,21 +33,21 @@ namespace Domain.Impl
             return users.Select(u => userFormatter.ToUserResponse(u)).ToList();
         }
 
-        public async Task<UserResponse> GetById(string id)
+        public async Task<UserResponse> GetById(int id)
         {
-            var user = await userAction.GetById(Convert.ToInt32(id));
+            var user = await userAction.GetById(id);
             return userFormatter.ToUserResponse(user);
         }
 
-        public async Task<UserResponse> Update(string id, User user)
+        public async Task<UserResponse> Update(int id, User user)
         {
-            var userUpdated = await userAction.Update(Convert.ToInt32(id), user);
+            var userUpdated = await userAction.Update(id, user);
             return userFormatter.ToUserResponse(userUpdated);
         }
 
-        public async Task Delete(string id)
+        public async Task Delete(int id)
         {
-            await userAction.Delete(Convert.ToInt32(id));
+            await userAction.Delete(id);
         }
     }
 }

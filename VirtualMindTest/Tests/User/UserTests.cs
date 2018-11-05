@@ -64,7 +64,7 @@ namespace Tests.User
                 .ReturnsAsync(user);
             var userResponse = userFormatter.ToUserResponse(user);
             var domain = new UserDomain(userActionMock.Object);
-            var result = await domain.GetById(id.ToString());
+            var result = await domain.GetById(id);
 
             Assert.IsNotNull(result);
             Assert.AreEqual(result.Id, userResponse.Id);
@@ -86,7 +86,7 @@ namespace Tests.User
 
             var userResponse = userFormatter.ToUserResponse(user);
             var domain = new UserDomain(userActionMock.Object);
-            var result = await domain.GetById(id.ToString());
+            var result = await domain.GetById(id);
         }
 
         [TestMethod]
@@ -116,7 +116,7 @@ namespace Tests.User
                 .ReturnsAsync(user);
             var userResponse = userFormatter.ToUserResponse(user);
             var domain = new UserDomain(userActionMock.Object);
-            var result = await domain.Update(id.ToString(), user);
+            var result = await domain.Update(id, user);
 
             Assert.IsNotNull(result);
             Assert.AreEqual(result.Id, userResponse.Id);
@@ -136,7 +136,7 @@ namespace Tests.User
                 .ThrowsAsync(new UserIdNotFoundException());
 
             var domain = new UserDomain(userActionMock.Object);
-            await domain.Delete(id.ToString());
+            await domain.Delete(id);
         }
     }
 }
