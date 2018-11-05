@@ -81,6 +81,8 @@
     <Compile Include="Quotation\QuotationTest.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="User\UserFakeData.cs" />
+    <Compile Include="User\UserTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -90,6 +92,10 @@
       <Project>{D1152AFA-EE73-4D20-AEFE-2EAB00168CAB}</Project>
       <Name>Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DataAccess\DataAccess.csproj">
+      <Project>{89EC93D1-CA1C-4E0D-85EF-F11CA1B8B540}</Project>
+      <Name>DataAccess</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Domain.Impl\Domain.Impl.csproj">
       <Project>{3876803F-C95C-4F29-AB3C-18AD40ECA2C8}</Project>
       <Name>Domain.Impl</Name>
@@ -97,6 +103,10 @@
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{176EADB1-B336-4FB7-9674-16B1DD611A99}</Project>
       <Name>Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Models\Models.csproj">
+      <Project>{a06c6013-06be-4ac7-8e97-3027e1348fc2}</Project>
+      <Name>Models</Name>
     </ProjectReference>
     <ProjectReference Include="..\ViewModels\ViewModels.csproj">
       <Project>{05ff39d3-83d9-4fd8-89ad-882f89d9148a}</Project>
