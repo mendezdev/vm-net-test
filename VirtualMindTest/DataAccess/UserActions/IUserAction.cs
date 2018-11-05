@@ -13,5 +13,6 @@ namespace DataAccess.UserActions
         Task<List<User>> GetAll();
         Task<User> GetById(int id);
         Task<User> Update(int id, User user);
+        Task Delete(int id);
     }
 }

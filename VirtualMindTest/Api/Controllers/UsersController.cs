@@ -59,5 +59,18 @@ namespace Api.Controllers
                 return Content(HttpStatusCode.BadRequest, e.Message);
             }
         }
+
+        [HttpDelete]
+        public async Task<IHttpActionResult> Delete(string id)
+        {
+            try
+            {
+                await userDomain.Delete(id);
+                return Ok();
+            } catch (UserIdNotFoundException e)
+            {
+                return Content(HttpStatusCode.BadRequest, e.Message);
+            }
+        }
     }
 }
