@@ -13,23 +13,23 @@ using System.Web.Http;
 
 namespace Api.Controllers
 {
-    public class CotizacionController : ApiController
+    public class QuotationController : ApiController
     {
         private readonly IQuotationDomain quotationDomain;
         private readonly ApiClient apiClient;
 
-        public CotizacionController()
+        public QuotationController()
         {
             apiClient = new ApiClient(new HttpClient());
             quotationDomain = new QuotationDomain(apiClient);
         }
 
         [HttpGet]
-        public async Task<IHttpActionResult> Get(string id)
+        public async Task<IHttpActionResult> Get(string currency)
         {
             try
             {
-                var response = await quotationDomain.GetQuotation(id);
+                var response = await quotationDomain.GetQuotation(currency);
                 return Ok(response);
             }
             catch (NotExistCurrencyIdException ex)
@@ -44,6 +44,6 @@ namespace Api.Controllers
             {
                 return Content(HttpStatusCode.ServiceUnavailable, new { ErrorMessage = ex.Message });
             }
-        }
+        }    
     }
 }

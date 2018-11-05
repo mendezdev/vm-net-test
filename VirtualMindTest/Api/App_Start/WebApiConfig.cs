@@ -15,6 +15,11 @@ namespace Api
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
+                name: "Users",
+                routeTemplate: "virtualmind/Cotizacion/{currency}",
+                defaults: new { controller = "Quotation", currency = RouteParameter.Optional }
+            );
+            config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "virtualmind/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
