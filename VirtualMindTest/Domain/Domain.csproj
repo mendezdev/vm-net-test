@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IApiClient.cs" />
     <Compile Include="IQuotationDomain.cs" />
     <Compile Include="IUserDomain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

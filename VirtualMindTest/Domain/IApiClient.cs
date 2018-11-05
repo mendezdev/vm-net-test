@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Impl.Client
+namespace Domain
 {
     public interface IApiClient
     {
