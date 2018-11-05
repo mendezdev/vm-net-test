@@ -124,5 +124,19 @@ namespace Tests.User
             Assert.AreEqual(result.LastName, userResponse.LastName);
             Assert.AreEqual(result.Email, userResponse.Email);
         }
+
+        [ExpectedException(typeof(UserIdNotFoundException))]
+        [TestMethod]
+        [TestCategory("User")]
+        public async Task DeleteUser_Exception()
+        {
+            var id = 2;
+
+            userActionMock.Setup(u => u.Delete(id))
+                .ThrowsAsync(new UserIdNotFoundException());
+
+            var domain = new UserDomain(userActionMock.Object);
+            await domain.Delete(id.ToString());
+        }
     }
 }
