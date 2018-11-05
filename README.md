@@ -1,6 +1,6 @@
 # NET Test
 
-This is a simple Net test, maded in Visual Stuido 2013, framework 4.5.2, Entity Framework 6.2.0.
+This is a simple Net test, made in Visual Studio 2013, framework 4.5.2, Entity Framework 6.2.0.
 
 ## Restore packages
 To restore the packages just build the solution.
